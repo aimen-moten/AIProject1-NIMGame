@@ -1,6 +1,5 @@
 # NIM Game
-## Justification:
-This project is intended to be fairly simple, so that you can “ease” your way back into programming if you haven’t done so in a while. Additionally, it will leave you with an implementation of the game of NIM, which you will modify and expand upon in future assignments.
+
 ## Description:
 This project should implement the game of NIM. For those who are unfamiliar with NIM, here are the rules for our version of the game:
 
