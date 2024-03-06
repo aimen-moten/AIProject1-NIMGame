@@ -9,7 +9,7 @@ def handleTurn(currTurn, stcks):
             move = random.randint(1,5)
     else:
         move = int(input("Enter the number of sticks you would like to take: "))
-        while move > stcks or move > 4 or move < 1:
+        while move > stcks or move not in range(1,5):
             move = input("Sorry, please choose a number less than "+ str(stcks))
     print("The "+ currTurn+ " took "+ str(move) + " sticks.")
     stcks = stcks - move
