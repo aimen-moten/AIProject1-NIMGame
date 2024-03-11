@@ -5,36 +5,37 @@ def alphaBeta(sticks):
     alpha = -1
     beta = 1
     value = -1
-    for i in range(1, sticks+1):
+    for i in range(1, sticks+1):     
         v = minValue(sticks-i, alpha, beta)
-        value = max(value, v)
+        if v > value:
+            value = v
+            bestMove = i
+        # value = max(value, v)
         alpha = max(alpha, value)
-        if beta <= alpha:
-            break
-    return value
+    return bestMove #eturn i that updates max
 
 def minValue(sticks, alpha, beta):
-    if sticks == 0:
+    if sticks <= 0:
         return 1
     value = 1
-    for i in range(1, sticks):
+    for i in range(1, sticks+1):
         v = maxValue(sticks-i, alpha, beta)
         value = min(value, v)
-        beta = min(beta, value)
-        if beta <= alpha:
-            break
+        if value <= alpha:
+            return value
+        beta = min(beta, value)         
     return value
 
 def maxValue(sticks, alpha, beta):
-    if sticks == 0:
+    if sticks <= 0:
         return -1
     value = -1
-    for i in range(1, sticks):
+    for i in range(1, sticks+1):
         v = minValue(sticks-i, alpha, beta)
         value = max(value, v)
+        if value >= beta:
+            return value
         alpha = max(alpha, value)
-        if beta <= alpha:
-            break
     return value
 
 
@@ -42,7 +43,7 @@ def handleTurn(currTurn, stcks: int, maxStcks: int):
     print(currTurn +"'s Turn:")
     # generate random number between 1 and 4 inclusive
     if currTurn == "Computer":
-        move = int(alphaBeta(min(stcks, maxStcks)))
+        move = int(min(alphaBeta(stcks), maxStcks))
         while move > stcks or move not in range(1, maxStcks+1):
             move = alphaBeta(stcks)
     else:
@@ -57,6 +58,8 @@ def handleTurn(currTurn, stcks: int, maxStcks: int):
 
 sticks = input("Enter number of sticks")
 maxSticks = input("Enter max number of sticks to take per turn")
+while int(maxSticks) > int(sticks):
+  maxSticks = input("Enter max number of sticks to take per turn")  
 print("Game Starting")
 currentTurn = "Computer"
 while  int(sticks) > 0: # while the last stick has not been taken
@@ -64,5 +67,5 @@ while  int(sticks) > 0: # while the last stick has not been taken
    if sticks == 0:
        print(currentTurn + " won!")
    currentTurn = "User" if currentTurn == "Computer" else "Computer"
-print("Game Over. Exiting...")
 
+print("Game Over. Exiting...")
