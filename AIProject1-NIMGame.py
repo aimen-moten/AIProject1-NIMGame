@@ -5,7 +5,8 @@ def alphaBeta(sticks):
     alpha = -1
     beta = 1
     value = -1
-    for i in range(1, sticks+1):     
+    bestMove = 1
+    for i in range(1, maxSticks+1):     
         v = minValue(sticks-i, alpha, beta)
         if v > value:
             value = v
@@ -18,7 +19,7 @@ def minValue(sticks, alpha, beta):
     if sticks <= 0:
         return 1
     value = 1
-    for i in range(1, sticks+1):
+    for i in range(1, maxSticks+1):
         v = maxValue(sticks-i, alpha, beta)
         value = min(value, v)
         if value <= alpha:
@@ -30,7 +31,7 @@ def maxValue(sticks, alpha, beta):
     if sticks <= 0:
         return -1
     value = -1
-    for i in range(1, sticks+1):
+    for i in range(1, maxSticks+1):
         v = minValue(sticks-i, alpha, beta)
         value = max(value, v)
         if value >= beta:
@@ -58,6 +59,7 @@ def handleTurn(currTurn, stcks: int, maxStcks: int):
 
 sticks = input("Enter number of sticks")
 maxSticks = input("Enter max number of sticks to take per turn")
+maxSticks = int(maxSticks)
 while int(maxSticks) > int(sticks):
   maxSticks = input("Enter max number of sticks to take per turn")  
 print("Game Starting")
